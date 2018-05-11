@@ -10,6 +10,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         useLibrary 'org.apache.http.legacy'
+        vectorDrawables.useSupportLibrary = true  // necessarily
 
         renderscriptTargetApi 25
         renderscriptSupportModeEnabled true
@@ -45,6 +46,9 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'//转换器，请求结果转换成Model
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'//配合Rxjava 使用
+
+    compile 'com.github.woxingxiao:VectorCompatTextView:2.5'
+    compile 'com.flaviofaria:kenburnsview:1.0.7'
 
 
 }

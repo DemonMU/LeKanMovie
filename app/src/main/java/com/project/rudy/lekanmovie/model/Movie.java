@@ -120,6 +120,14 @@ public class Movie implements Parcelable {
         this.story = story;
     }
 
+    public String getReleaseDateString() {
+        if (getPlayDate() == null) {
+            return null;
+        }
+
+        return getPlayDate().getData();
+    }
+
 
     @Override
     public int describeContents() {
@@ -210,6 +218,36 @@ public class Movie implements Parcelable {
                 builder.deleteCharAt(builder.lastIndexOf(","));
             }
         }
+        return builder.toString();
+    }
+
+
+    public String getMovieTypeString() {
+        return extractLabelTypeString(getMovieType());
+    }
+
+    private String extractLabelTypeString(LabelType labelType) {
+        if (labelType == null) return "";
+
+        StringBuilder builder = new StringBuilder();
+        if (labelType.getData() != null) {
+            if (labelType.getData().getLabel1() != null) {
+                builder.append(labelType.getData().getLabel1().getName()).append("，");
+            }
+            if (labelType.getData().getLabel2() != null) {
+                builder.append(labelType.getData().getLabel2().getName()).append("，");
+            }
+            if (labelType.getData().getLabel3() != null) {
+                builder.append(labelType.getData().getLabel3().getName()).append("，");
+            }
+            if (labelType.getData().getLabel4() != null) {
+                builder.append(labelType.getData().getLabel4().getName()).append("，");
+            }
+            if (builder.toString().endsWith("，")) {
+                builder.deleteCharAt(builder.lastIndexOf("，"));
+            }
+        }
+
         return builder.toString();
     }
 }

@@ -4,11 +4,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -18,13 +21,24 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.project.rudy.lekanmovie.utils.Configs;
+
+import java.io.Serializable;
 
 import butterknife.ButterKnife;
 
 
 public class BaseActivity extends AppCompatActivity {
+
+    protected static final String PARAM_1 = "param_1";
+    protected static final String PARAM_2 = "param_2";
+    protected static final String OBJ_1 = "obj_1";
+    protected static final int REQUEST_CODE_1 = 0x22;
+
+    private static final String[] PARAMS = {PARAM_1, PARAM_2};
+    private static final String[] OBJECTS = {OBJ_1};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +55,44 @@ public class BaseActivity extends AppCompatActivity {
      */
     protected void navigate(Class activity) {
         startActivity(new Intent(this, activity));
+    }
+
+    public static void navigate(Context activity, Class toActivity, @NonNull Object... params) {
+        activity.startActivity(assembleIntentWithParam(new Intent(activity, toActivity), params));
+    }
+
+    private static Intent assembleIntentWithParam(Intent intent, @NonNull Object... params) {
+        int p_i = 0;
+        int o_i = 0;
+
+        for (Object obj : params) {
+            if (obj instanceof Integer) {
+                intent.putExtra(PARAMS[p_i], (int) obj);
+            } else if (obj instanceof Boolean) {
+                intent.putExtra(PARAMS[p_i], (boolean) obj);
+            } else if (obj instanceof Float) {
+                intent.putExtra(PARAMS[p_i], (float) obj);
+            } else if (obj instanceof Double) {
+                intent.putExtra(PARAMS[p_i], (double) obj);
+            } else if (obj instanceof String) {
+                intent.putExtra(PARAMS[p_i], (String) obj);
+            } else if (obj instanceof Long) {
+                intent.putExtra(PARAMS[p_i], (long) obj);
+            } else if (obj instanceof Parcelable) {
+                intent.putExtra(OBJECTS[o_i], (Parcelable) obj);
+            } else if (obj instanceof Serializable) {
+                intent.putExtra(OBJECTS[o_i], (Serializable) obj);
+            }
+
+            if (obj instanceof Integer || obj instanceof Boolean || obj instanceof Float
+                    || obj instanceof Double || obj instanceof String || obj instanceof Long) {
+                p_i++;
+            } else if (obj instanceof Parcelable || obj instanceof Serializable) {
+                o_i++;
+            }
+        }
+
+        return intent;
     }
 
     /**
@@ -105,5 +157,9 @@ public class BaseActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
+    }
+
+    protected void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }

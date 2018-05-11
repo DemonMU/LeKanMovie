@@ -4,4 +4,16 @@
 
     <string name="has_released">上映</string>
     <string name="going_to_release">待映</string>
+    <string name="main_toolbar_title">乐看电影</string>
+
+    <string name="hour_min">时&#160;&#160;:&#160;&#160;分</string>
+    <string name="format_hour_min">%1$s&#160;&#160;:&#160;&#160;%2$s</string>
+    <string name="format_hour_min2">%1$s:%2$s</string>
+    <string name="grade">评&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;分</string>
+    <string name="release_date">上映日期</string>
+    <string name="type">类&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;型</string>
+    <string name="director">导&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;演</string>
+    <string name="starring">主&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;演</string>
+    <string name="story_brief">剧情简介</string>
+    <string name="release_info">上映信息</string>
 </resources>

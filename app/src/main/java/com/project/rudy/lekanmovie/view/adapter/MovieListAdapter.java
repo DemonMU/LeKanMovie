@@ -13,6 +13,7 @@ import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.project.rudy.lekanmovie.R;
 import com.project.rudy.lekanmovie.model.Movie;
 import com.project.rudy.lekanmovie.view.activity.BaseActivity;
+import com.project.rudy.lekanmovie.view.activity.MovieDetailActivity;
 import com.project.rudy.lekanmovie.view.widget.AutoFitSizeTextView;
 import com.project.rudy.lekanmovie.view.widget.TagGroup;
 
@@ -74,7 +75,7 @@ public class MovieListAdapter extends BaseRecyclerViewAdapter<Movie, MovieListAd
         holder.mPosterImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                BaseActivity.navigate(mContext, MovieDetailActivity.class, model);
+                 BaseActivity.navigate(mContext, MovieDetailActivity.class, model);
             }
         });
     }
