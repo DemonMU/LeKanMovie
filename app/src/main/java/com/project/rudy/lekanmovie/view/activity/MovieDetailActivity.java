@@ -19,6 +19,7 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,7 @@ import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.project.rudy.lekanmovie.R;
 import com.project.rudy.lekanmovie.model.Movie;
+import com.project.rudy.lekanmovie.utils.Util;
 
 import java.util.List;
 
@@ -86,7 +88,12 @@ public class MovieDetailActivity extends BaseActivity implements AppBarLayout.On
         ButterKnife.bind(this);
 
         initializeToolbar();
-
+        mAppBar.addOnOffsetChangedListener(this);
+        //toolbar高度距顶部statusHeight
+        CollapsingToolbarLayout.LayoutParams lp = (CollapsingToolbarLayout.LayoutParams)
+                mToolbar.getLayoutParams();
+        lp.topMargin = Util.getStatusBarHeight();
+        mToolbar.setLayoutParams(lp);
 
         final Movie movieModel = getIntent().getParcelableExtra(OBJ_1);
         if (movieModel == null) {
@@ -159,14 +166,10 @@ public class MovieDetailActivity extends BaseActivity implements AppBarLayout.On
         } else {
             Intent intent = new Intent(this, WebActivity.class);
             intent.putExtra("url", movieModel.getWebUrl());
+            Log.i("zhangle", "goToDetail: "+movieModel.getWebUrl());
             intent.putExtra("title", movieModel.getName() == null ? "" : movieModel.getName());
 
-            navigateWithRippleCompat(
-                    this,
-                    intent,
-                    view,
-                    R.color.colorAccent
-            );
+            navigateWithRippleCompat(this, intent, view, R.color.colorAccent);
         }
     }
 

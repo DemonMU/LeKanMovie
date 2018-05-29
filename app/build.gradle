@@ -14,6 +14,11 @@ android {
 
         renderscriptTargetApi 25
         renderscriptSupportModeEnabled true
+
+        //配置so文件
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+        }
     }
     buildTypes {
         release {
